@@ -72,4 +72,7 @@
   .side-box {
     position: unset;
   }
+  .card {
+    width: 100%;
+  }
 }
