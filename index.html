@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="main.css" />
+    <title>Potter-Dex</title>
+  </head>
+  <body class="yellow">
+    <div class="row main-row">
+      <div class="col s3 side-box red darken-4">
+        <h1 class="head">
+          Potter-Dex
+        </h1>
+        <hr class="line white" />
+        <div class="card z-depth-2 hoverable">
+          <div class="card-image">
+            <img src="imgs/potter.png" alt="" />
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content">
+            <p>
+              Welcome potter fans this site is the location for all your needs
+              regarding the charecters and spells.
+            </p>
+          </div>
+          <div class="card-action">
+            <a href="https://www.potterapi.com/">Made using Potter-api</a>
+          </div>
+          <div class="card-action">
+            <a href="www.anke-art.de">Font Credits</a>
+          </div>
+        </div>
+      </div>
+      <div class="col s9 offset-s3 main-box yellow">
+        <div class="row">
+          <div class="col s12 tab-box">
+            <ul class="tabs tabs-fixed-width orange darken-4">
+              <li class="tab col s3">
+                <a class="active" href="#houses">All Houses</a>
+              </li>
+              <li class="tab col s3">
+                <a href="#charecters">All Charecters</a>
+              </li>
+              <li class="tab col s3">
+                <a href="#spells">All Spells</a>
+              </li>
+              <li class="tab col s3">
+                <a href="#hat">Sorting Cap</a>
+              </li>
+            </ul>
+          </div>
+          <div id="charecters" class="col s12">
+            <div class="row charecters"></div>
+          </div>
+          <div id="houses" class="col s12"><div class="row houses"></div></div>
+          <div id="spells" class="col s12">Test 3</div>
+          <div id="hat" class="col s12">Test 4</div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+      var tabs = M.Tabs.init(document.querySelectorAll(".tabs"), {});
+    </script>
+  </body>
+</html>

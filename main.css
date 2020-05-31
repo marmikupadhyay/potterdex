@@ -1,0 +1,56 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.side-box {
+  position: fixed;
+  height: 100vh;
+}
+
+.head {
+  color: white;
+  font-size: 4em;
+  text-align: center;
+  font-family: "parryhotter";
+}
+
+.tabs {
+  margin: 0;
+}
+
+.tab-box {
+  padding: 0 !important;
+}
+
+.tabs a {
+  color: white !important;
+}
+
+.charecters,
+.houses {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.char-card {
+  width: 40%;
+  margin: 10px 2.5%;
+}
+.char-card .card-title {
+  font-size: 2em;
+}
+.house-card {
+  width: 40%;
+  margin: 10px 2.5%;
+}
+.house-card .card-title {
+  font-size: 2em;
+}
+.house-card .card-image {
+  width: 100%;
+}
+@font-face {
+  font-family: "parryhotter";
+  src: url("ParryHotter.ttf");
+}
