@@ -29,7 +29,7 @@ const searchSpells = searchText => {
     return spell.spell.match(regex);
   });
   if (searchText.length === 0) {
-    matches = spell;
+    matches = spells;
   }
   putSpells(matches);
 };
