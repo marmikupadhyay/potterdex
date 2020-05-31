@@ -2,16 +2,73 @@ var charbox = document.querySelector(".charecters");
 var housebox = document.querySelector(".houses");
 var spellbox = document.querySelector(".spells");
 var hat = document.getElementById("result");
-fetch(
-  "https://www.potterapi.com/v1/characters?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
-)
-  .then(res => res.json())
-  .then(data => {
-    charecters = data;
-    charecters.forEach(charecter => {
-      var charcard = document.createElement("div");
-      charcard.className = "card z-depth-2 hoverable char-card";
-      charcard.innerHTML = `
+var searchspell = document.getElementById("spellinput");
+var searchchar = document.getElementById("charinput");
+
+let charecters = [];
+let houses = [];
+let spells = [];
+
+searchchar.addEventListener("input", () => searchCharecters(searchchar.value));
+searchspell.addEventListener("input", () => searchSpells(searchspell.value));
+
+const searchCharecters = searchText => {
+  let matches = charecters.filter(charecter => {
+    const regex = new RegExp(`^${searchText}`, "gi");
+    return charecter.name.match(regex);
+  });
+  if (searchText.length === 0) {
+    matches = charecters;
+  }
+  putCharecters(matches);
+};
+
+const searchSpells = searchText => {
+  let matches = spells.filter(spell => {
+    const regex = new RegExp(`^${searchText}`, "gi");
+    return spell.spell.match(regex);
+  });
+  if (searchText.length === 0) {
+    matches = spell;
+  }
+  putSpells(matches);
+};
+
+const getCharecters = async () => {
+  const res = await fetch(
+    "https://www.potterapi.com/v1/characters?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
+  );
+  charecters = await res.json();
+  putCharecters(charecters);
+};
+
+const getHouses = async () => {
+  const res = await fetch(
+    "https://www.potterapi.com/v1/houses?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
+  );
+  houses = await res.json();
+  houses[2].school = "Hogwarts School of Witchcraft and Wizardry";
+  putHouses();
+};
+
+const getSpells = async () => {
+  const res = await fetch(
+    "https://www.potterapi.com/v1/spells?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
+  );
+  spells = await res.json();
+  putSpells(spells);
+};
+
+getCharecters();
+getHouses();
+getSpells();
+
+function putCharecters(charecters) {
+  charbox.innerHTML = "";
+  charecters.forEach(charecter => {
+    var charcard = document.createElement("div");
+    charcard.className = "card z-depth-2 hoverable char-card";
+    charcard.innerHTML = `
           <div class="card-content">
               <span class="card-title">${charecter.name}</span>
                 <ul class="collection">
@@ -27,24 +84,15 @@ fetch(
                 </ul>
           </div>
         `;
-      charbox.appendChild(charcard);
-    });
-  })
-  .catch(err => {
-    console.log(err);
+    charbox.appendChild(charcard);
   });
+}
 
-fetch(
-  "https://www.potterapi.com/v1/houses?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
-)
-  .then(res => res.json())
-  .then(data => {
-    var houses = data;
-    console.log(houses);
-    houses.forEach((house, index) => {
-      var housecard = document.createElement("div");
-      housecard.className = "card z-depth-2 hoverable house-card";
-      housecard.innerHTML = `<div class="card-image">
+function putHouses() {
+  houses.forEach((house, index) => {
+    var housecard = document.createElement("div");
+    housecard.className = "card z-depth-2 hoverable house-card";
+    housecard.innerHTML = `<div class="card-image">
             <img src="imgs/house${index + 1}.jpg" alt="" />
             <span class="card-title">${house.name}</span>
           </div>
@@ -61,35 +109,25 @@ fetch(
                     <li class="collection-item">School-${house.school}</li>
             </ul>
           </div>`;
-      housebox.appendChild(housecard);
-    });
-  })
-  .catch(err => {
-    console.log(err);
+    housebox.appendChild(housecard);
   });
+}
 
-fetch(
-  "https://www.potterapi.com/v1/spells?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
-)
-  .then(res => res.json())
-  .then(data => {
-    var spells = data;
-    spells.forEach(spell => {
-      var spellcard = document.createElement("div");
-      spellcard.className = "card z-depth-2 hoverable spell-card";
-      spellcard.innerHTML = `<div class="card-content">
+function putSpells(spells) {
+  spellbox.innerHTML = "";
+  spells.forEach(spell => {
+    var spellcard = document.createElement("div");
+    spellcard.className = "card z-depth-2 hoverable spell-card";
+    spellcard.innerHTML = `<div class="card-content">
               <span class="card-title">${spell.spell}</span>
                 <ul class="collection">
                     <li class="collection-item">Type -${spell.type}</li>
                     <li class="collection-item">Effect -${spell.effect}</li>
                 </ul>
           </div>`;
-      spellbox.appendChild(spellcard);
-    });
-  })
-  .catch(err => {
-    console.log(err);
+    spellbox.appendChild(spellcard);
   });
+}
 
 function sortingHat() {
   fetch("https://www.potterapi.com/v1/sortinghat")
