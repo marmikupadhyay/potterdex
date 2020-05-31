@@ -1,7 +1,7 @@
 var charbox = document.querySelector(".charecters");
-
 var housebox = document.querySelector(".houses");
-var charecters = [];
+var spellbox = document.querySelector(".spells");
+var hat = document.getElementById("result");
 fetch(
   "https://www.potterapi.com/v1/characters?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
 )
@@ -29,6 +29,9 @@ fetch(
         `;
       charbox.appendChild(charcard);
     });
+  })
+  .catch(err => {
+    console.log(err);
   });
 
 fetch(
@@ -60,4 +63,42 @@ fetch(
           </div>`;
       housebox.appendChild(housecard);
     });
+  })
+  .catch(err => {
+    console.log(err);
   });
+
+fetch(
+  "https://www.potterapi.com/v1/spells?key=$2a$10$s78rAWXa..azjMNgt6KtreK1wkbcWHe7mMp39o7/S1gQgTsAxROFO"
+)
+  .then(res => res.json())
+  .then(data => {
+    var spells = data;
+    spells.forEach(spell => {
+      var spellcard = document.createElement("div");
+      spellcard.className = "card z-depth-2 hoverable spell-card";
+      spellcard.innerHTML = `<div class="card-content">
+              <span class="card-title">${spell.spell}</span>
+                <ul class="collection">
+                    <li class="collection-item">Type -${spell.type}</li>
+                    <li class="collection-item">Effect -${spell.effect}</li>
+                </ul>
+          </div>`;
+      spellbox.appendChild(spellcard);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+function sortingHat() {
+  fetch("https://www.potterapi.com/v1/sortinghat")
+    .then(res => res.json())
+    .then(data => {
+      var housename = data;
+      result.innerHTML = `The Sorting Hat Says ... ${housename} !!!`;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
