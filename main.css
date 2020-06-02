@@ -75,4 +75,16 @@
   .card {
     width: 100%;
   }
+
+  ul.tabs {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+  }
+  .tabs .tab {
+    width: 100% !important;
+    overflow-y: auto;
+    min-height: 50px;
+  }
 }
